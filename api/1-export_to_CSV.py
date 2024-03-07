@@ -9,6 +9,7 @@ def csv():
     """ Consulta y exporta en formato csv """
 
     url = "https://jsonplaceholder.typicode.com/users"
+    file_name = argv[1] + ".csv"
 
     user = requests.get("{}/{}".format(url, argv[1])).json()
     tasks = requests.get("{}/{}/todos".format(url, argv[1])).json()
@@ -19,7 +20,7 @@ def csv():
                                               task['completed'],
                                               task['title'])
 
-        with open(argv[1] + '.csv', 'a', encoding='utf-8') as csvfile:
+        with open(file_name, 'a', encoding='utf-8') as csvfile:
             csvfile.write(data)
 
 
