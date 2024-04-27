@@ -12,13 +12,13 @@ def api():
 
     user = requests.get(url + argv[1]).json()
     todo = requests.get(url + argv[1] + '/todos').json()
-    name = user['name']
+    name = user.get('name')
     contador = 0
     tareas_completas = []
 
     for item in todo:
         contador += 1
-        if item['completed'] is True:
+        if item.get('completed') is True:
             tareas_completas.append(item['title'])
 
     print(f"Employee {name} is done with tasks"
