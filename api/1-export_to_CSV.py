@@ -14,7 +14,6 @@ def api():
     todo = requests.get(url + argv[1] + '/todos').json()
     name = user.get('name')
     doc = str(user.get('id')) + ".csv"
-    a = ""
 
     with open(doc, 'a', encoding='UTF-8') as file:
         for item in todo:
