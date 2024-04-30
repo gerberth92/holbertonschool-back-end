@@ -11,15 +11,15 @@ def api():
 
     url = "https://jsonplaceholder.typicode.com/users/"
 
-    user = requests.get(url + argv[1]).json()
-    todo = requests.get(url + argv[1] + '/todos').json()
+    id = argv[1]
+    user = requests.get(url + id).json()
+    todo = requests.get(url + id + '/todos').json()
     name = user.get('name')
-    # doc = str(user.get('id')) + ".csv"
 
-    with open("{}.csv".format(argv[1]), "w") as file:
+    with open("{}.csv".format(id), "w") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for employee in todo:
-            user_id = argv[1]
+            user_id = id
             username = name
             task_com = employee.get('completed')
             task_title = employee.get('title')
