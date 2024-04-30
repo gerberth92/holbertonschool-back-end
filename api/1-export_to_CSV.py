@@ -3,6 +3,7 @@
 
 import requests
 from sys import argv
+import csv
 
 
 def api():
@@ -13,14 +14,19 @@ def api():
     user = requests.get(url + argv[1]).json()
     todo = requests.get(url + argv[1] + '/todos').json()
     name = user.get('name')
-    doc = str(user.get('id')) + ".csv"
+    # doc = str(user.get('id')) + ".csv"
 
-    with open(doc, 'a', encoding='UTF-8') as file:
-        for item in todo:
-            file.write('"{}","{}","{}","{}"\n'.format(user.get('id'), name,
-                                                      item.get('completed'),
-                                                      item.get('title')))
+    with open("{}.csv".format(argv[1]), "w") as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        for employee in todo:
+            user_id = argv[1]
+            username = name
+            task_com = employee.get('completed')
+            task_title = employee.get('title')
 
+            fila = [user_id, username, task_com, task_title]
+
+            writer.writerow(fila)
 
 if __name__ == '__main__':
     api()
