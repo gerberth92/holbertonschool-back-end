@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ Este modulo obtiene datos de una api. """
 
+import csv
 import requests
 from sys import argv
-import csv
 
 
 def api():
