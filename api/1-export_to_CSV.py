@@ -9,18 +9,17 @@ from sys import argv
 def api():
     """ Esta funcion hace una consulta a una api. """
 
-    url = "https://jsonplaceholder.typicode.com/users/"
+    url = "https://jsonplaceholder.typicode.com/"
 
     id = argv[1]
-    user = requests.get(url + id).json()
-    todo = requests.get(url + id + '/todos').json()
-    name = user.get('name')
+    user = requests.get(url + 'users/{}'.format(id)).json()
+    todo = requests.get(url + 'todos', params={"userId": id}).json()
 
     with open("{}.csv".format(id), "w") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for employee in todo:
             user_id = id
-            username = name
+            username = user.get('username')
             task_com = employee.get('completed')
             task_title = employee.get('title')
 
